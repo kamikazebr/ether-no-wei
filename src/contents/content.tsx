@@ -5,8 +5,12 @@ import { CountButton } from "~features/count-button"
 
 import "~base.css"
 
+import { useEffect } from "react"
+
+import SlideModal from "~features/slide-modal"
+
 export const config: PlasmoCSConfig = {
-  matches: ["https://www.plasmo.com/*"]
+  matches: ["https://blank.org/*"]
 }
 
 export const getStyle = () => {
@@ -16,11 +20,7 @@ export const getStyle = () => {
 }
 
 const PlasmoOverlay = () => {
-  return (
-    <div className="z-50 flex fixed top-32 right-8">
-      <CountButton />
-    </div>
-  )
+  return <SlideModal key={"slidemodal"} />
 }
 
 export default PlasmoOverlay

@@ -1,7 +1,19 @@
-import { useReducer } from "react"
+import { useEffect, useReducer, useState } from "react"
 
 export const CountButton = () => {
   const [count, increase] = useReducer((c) => c + 1, 0)
+  const [text, setText] = useState("Inicial")
+
+  useEffect(() => {
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      if (message.type === "content:btn") {
+        console.log("content:btn", message)
+        setText(message.value ?? "Vazio")
+      }
+
+      return true
+    })
+  }, [])
 
   return (
     <button
@@ -13,6 +25,9 @@ export const CountButton = () => {
       Count:
       <span className="inline-flex items-center justify-center w-8 h-4 ml-2 text-xs font-semibold rounded-full">
         {count}
+      </span>
+      <span className="inline-flex items-center justify-center w-8 h-4 ml-2 text-xs font-semibold rounded-full">
+        {text}
       </span>
     </button>
   )
